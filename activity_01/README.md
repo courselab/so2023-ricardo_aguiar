@@ -14,9 +14,9 @@ To build and run this example, you will need:
 
 To build the code, navigate to the project directory and run the following command:
 
-"""
+```
 make bootloader.bin
-"""
+```
 
 This will compile the bootloader and program code and generate a binary file called `bootloader.bin` and `bootloader.o`.
 
@@ -24,9 +24,9 @@ This will compile the bootloader and program code and generate a binary file cal
 
 To run the code, navigate to the project directory and run the following command:
 
-"""
+```
 make bootloader.bin/run
-"""
+```
 
 This will launch QEMU and execute the `bootloader.bin` file. You should see a message on the screen that says "Hello, World!".
 
@@ -34,6 +34,6 @@ This will launch QEMU and execute the `bootloader.bin` file. You should see a me
 
 To clean up the project directory and remove any generated files, run the following command:
 
-"""
+```
 make clean
-"""
+```
