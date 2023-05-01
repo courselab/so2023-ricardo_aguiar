@@ -34,7 +34,8 @@ hw-c.bin: hw.c stdio.h
 	as --32 hw-c_utils.s -o hw-c_utils.o
 	as --32 hw-c_rt0.s -o hw-c_rt0.o
 	ld -melf_i386 -T hw-c.ld --orphan-handling=discard  hw-c.o hw-c_utils.o hw-c_rt0.o -o $@
-
+	rm hw-c*.s
+	
 # Run on the emulator
 %/run : %
 	qemu-system-i386 -drive format=raw,file=$< -net none

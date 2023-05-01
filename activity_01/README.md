@@ -31,7 +31,7 @@ make hw-s.bin/run
 ```
 ### Challenge c):
 ```
-make hw-c.bin/run
+make hw-c.bin && make hw-c.bin/run
 ```
 
 This will launch QEMU and execute the `hw*.bin` file. You should see a message on the screen that says "Hello, World!".
