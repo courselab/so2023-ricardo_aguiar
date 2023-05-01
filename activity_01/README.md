@@ -17,17 +17,7 @@ To build and run this example, you will need:
 - GCC and Make
 - QEMU
 
-## Building the Code
-
-To build the code, navigate to the project directory and run the following command:
-
-```
-make bootloader.bin
-```
-
-This will compile the bootloader and program code and generate a binary file called `bootloader.bin` and `bootloader.o`.
-
-## Running the Code
+## Building the Code && Running the Code
 
 To run the code, navigate to the project directory and run the following command:
 
