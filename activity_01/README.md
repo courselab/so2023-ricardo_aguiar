@@ -17,7 +17,7 @@ To build and run this example, you will need:
 - GCC and Make
 - QEMU
 
-## Building the Code && Running the Code
+## Building && Running the Code
 
 To run the code, navigate to the project directory and run the following command:
 
