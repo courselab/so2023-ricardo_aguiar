@@ -2,6 +2,13 @@
 
 This is an example of a simple bootloader that loads and executes a hello world program.
 
+# Challenge
+a) Implement your own version of the hello world program in machine code.
+
+b) Implement your own version of the hello world program in AT&T assembly.
+
+c) Implement your own version of the hello world program in C.
+
 ## Requirements
 
 To build and run this example, you will need:
@@ -24,11 +31,20 @@ This will compile the bootloader and program code and generate a binary file cal
 
 To run the code, navigate to the project directory and run the following command:
 
+### Challenge a):
 ```
-make bootloader.bin/run
+make hw-hex.bin/run
+```
+### Challenge b):
+```
+make hw-s.bin/run
+```
+### Challenge c):
+```
+make hw-c.bin/run
 ```
 
-This will launch QEMU and execute the `bootloader.bin` file. You should see a message on the screen that says "Hello, World!".
+This will launch QEMU and execute the `hw*.bin` file. You should see a message on the screen that says "Hello, World!".
 
 ## Cleaning Up
 
