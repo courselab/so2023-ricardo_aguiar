@@ -15,32 +15,43 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-AUXDIR =tools#
+AUXDIR = tools
+BINDIR = bin
 
 all: hw-hex.bin hw-s.bin hw-c.bin
 
 hw-hex.bin: hw.hex
-	$(AUXDIR)/hex2bin $< $@ 
+	$(AUXDIR)/hex2bin $< $(BINDIR)/$@ 
 
 hw-s.bin: hw.S
 	as --32 $< -o hw-s.o
-	ld -melf_i386 --oformat=binary -e begin -Ttext=0x7c00  hw-s.o -o $@
+	ld -melf_i386 --oformat=binary -e begin -Ttext=0x7c00  hw-s.o -o $(BINDIR)/$@
+	rm hw-s.o
 
-hw-c.bin: hw.c stdio.h 
-	gcc -m16 -O0 -I. -Wall -fno-pic -fcf-protection=none  --freestanding -S $< -o hw-c.s
-	gcc -m16 -O0 -I. -Wall -fno-pic -fcf-protection=none --freestanding -S hw-c_utils.c -o hw-c_utils.s
-	gcc -m16 -O0 -I. -Wall -fno-pic  -fcf-protection=none -S hw-c_rt0.c -o hw-c_rt0.s
-	as --32 hw-c.s -o hw-c.o
-	as --32 hw-c_utils.s -o hw-c_utils.o
-	as --32 hw-c_rt0.s -o hw-c_rt0.o
-	ld -melf_i386 -T hw-c.ld --orphan-handling=discard  hw-c.o hw-c_utils.o hw-c_rt0.o -o $@
-	rm hw-c*.s
+hw-c.s: %.s : %.c %.h 
+	gcc -m16 -O0 -I. -Wall -fno-pic -fcf-protection=none  --freestanding -S $< -o $@
+
+hw-c_utils.s: %.s : %.c
+	gcc -m16 -O0 -I. -Wall -fno-pic -fcf-protection=none --freestanding -S $< -o $@
+
+hw-c_rt0.s: %.s : %.c
+	gcc -m16 -O0 -I. -Wall -fno-pic  -fcf-protection=none -S $< -o $@
 	
+hw-c.o hw-c_utils.o hw-c_rt0.o: %.o : %.s
+	as --32 $*.s -o $@
+
+hw-c.bin: %.bin : %.o %_utils.o %.ld | %_rt0.o 
+	ld -melf_i386 -T $*.ld --orphan-handling=discard  hw-c.o -o $(BINDIR)/$@
+	rm hw-c*.s *.o
+
+$(BINDIR):
+	mkdir -p $(BINDIR)
+		
 # Run on the emulator
 %/run : %
-	qemu-system-i386 -drive format=raw,file=$< -net none
+	qemu-system-i386 -drive format=raw,file=$(BINDIR)/$< -net none
 
 .PHONY: clean
 
 clean:
-	rm -rf *.bin *.o hex2bin hw-c*.s
+	rm -rf bin/*.bin *.o hex2bin hw-c*.s

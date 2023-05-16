@@ -19,7 +19,7 @@ To build and run this example, you will need:
 
 ## Building && Running the Code
 
-To run the code, navigate to the project directory and run the following command:
+To run the code, navigate to the project directory (activity_01) and run the following command:
 
 ### Challenge a):
 ```
@@ -31,10 +31,10 @@ make hw-s.bin/run
 ```
 ### Challenge c):
 ```
-make hw-c.bin && make hw-c.bin/run
+make hw-c.bin/run
 ```
 
-This will launch QEMU and execute the `hw*.bin` file. You should see a message on the screen that says "Hello, World!".
+This will launch QEMU and execute the `bin/hw*.bin` file. You should see a message on the screen that says "Hello, World!".
 
 ## Cleaning Up
 
